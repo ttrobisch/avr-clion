@@ -1,19 +1,25 @@
 #include <avr/io.h>
 #include <util/delay.h>
-#include "easyavr.h"
+#include <avr/portpins.h>
 
-#define LED_PORT PORTD
-#define LED_PIN 0
-#define LED_DDR DDRD
+#define F_CPU 8000000UL
+
+#define LED_PORT PORTA
+#define LED_PIN 5
+#define LED_DDR DDRA
 
 int main(void)
 {
-    PIN_AS_OUTPUT(LED_DDR, LED_PIN);
+
+    DDRB = 0x08;
+    PORTB = 0x00;
+
+    DDRA = 0x08;
+    PORTA = 0x08;
 
     while (1) {
-        PIN_ON(LED_PORT, LED_PIN);
         _delay_ms(100);
-        PIN_OFF(LED_PORT, LED_PIN);
-        _delay_ms(100);
+        PORTA ^= 0x08;
     }
+
 }
